@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="koge5-csaWbcOGNZ4-VY">
+    <mxGraphModel dx="766" dy="519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=12 12;verticalAlign=top;fontSize=14;align=left;" value="&lt;br&gt;&lt;b&gt;Environnement Docker&lt;br&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="280" width="370" x="380" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-9" edge="1" parent="1" source="9uqIFnfQeXlKYAhuxkaK-1" style="edgeStyle=none;curved=1;rounded=0;curveGeometry=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;startSize=8;endSize=8;" target="9uqIFnfQeXlKYAhuxkaK-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-10" connectable="0" parent="9uqIFnfQeXlKYAhuxkaK-9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=fontFamily,fontSize,fontStyle,textOpacity,labelBorderWidth,defaultLabelBackgroundColor,labelPadding;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;labelBackgroundColor=#f8cecc;labelBorderColor=#b85450;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;HTTPS / JSON + JWT&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0804" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Frontend SPA&lt;/b&gt; (React + TypeScript)" vertex="1">
+          <mxGeometry height="79" width="158" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;API REST&lt;/b&gt; (Node.js + NestJS + PDFKit)" vertex="1">
+          <mxGeometry height="79" width="158" x="400" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-7" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b style=&quot;&quot;&gt;Base de données PostgreSQL&lt;/b&gt; (Prisma)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="79" x="640" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-8" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;perimeter=cloudPerimeter;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Service E-mails&lt;/b&gt; (Resend / Brevo)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="209" x="550" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-11" edge="1" parent="1" source="9uqIFnfQeXlKYAhuxkaK-5" style="edgeStyle=none;curved=1;rounded=0;curveGeometry=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=-0.017;entryY=0.578;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;startSize=8;endSize=8;" target="9uqIFnfQeXlKYAhuxkaK-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-12" connectable="0" parent="9uqIFnfQeXlKYAhuxkaK-11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=fontFamily,fontSize,fontColor,fontStyle,textOpacity,labelBorderWidth,defaultLabelBackgroundColor,labelPadding;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;labelBackgroundColor=#f8cecc;labelBorderColor=#b85450;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Requêtes SQL (Prisma)&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0489" y="5" as="geometry">
+            <mxPoint x="-18" y="19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-16" edge="1" parent="1" source="9uqIFnfQeXlKYAhuxkaK-5" style="edgeStyle=none;curved=1;rounded=0;curveGeometry=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0.25;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;startSize=8;endSize=8;" target="9uqIFnfQeXlKYAhuxkaK-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9uqIFnfQeXlKYAhuxkaK-17" connectable="0" parent="9uqIFnfQeXlKYAhuxkaK-16" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];inheritText=fontFamily,fontSize,fontColor,fontStyle,textOpacity,labelBorderWidth,defaultLabelBackgroundColor,labelPadding;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;labelBackgroundColor=#f8cecc;labelBorderColor=#b85450;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;Envoi e-mail (HTTPS + Clé API)&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.1226" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
