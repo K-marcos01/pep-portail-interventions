@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  PROVIDER
+  CLIENT
+  ADMIN
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  REJECTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(CLIENT)
+  fullName     String
+  companyName  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  serviceItems   ServiceItem[]
+  providedQuotes Quote[]         @relation("ProviderQuotes")
+  receivedQuotes Quote[]         @relation("ClientQuotes")
+  statusChanges  StatusHistory[]
+
+  @@map("users")
+}
+
+model ServiceItem {
+  id          String   @id @default(uuid())
+  label       String
+  unit        String
+  unitPriceHT Float
+  vatRate     Float
+  providerId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  provider   User        @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  quoteLines QuoteLine[]
+
+  @@map("service_items")
+}
+
+model Quote {
+  id         String      @id @default(uuid())
+  reference  String      @unique
+  status     QuoteStatus @default(DRAFT)
+  totalHT    Float       @default(0)
+  totalTTC   Float       @default(0)
+  providerId String
+  clientId   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  // Relations
+  provider      User            @relation("ProviderQuotes", fields: [providerId], references: [id])
+  client        User            @relation("ClientQuotes", fields: [clientId], references: [id])
+  lines         QuoteLine[]
+  statusHistory StatusHistory[]
+
+  @@map("quotes")
+}
+
+model QuoteLine {
+  id            String  @id @default(uuid())
+  label         String
+  quantity      Float
+  unitPriceHT   Float
+  quoteId       String
+  serviceItemId String?
+
+  // Relations
+  quote       Quote        @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  serviceItem ServiceItem? @relation(fields: [serviceItemId], references: [id], onDelete: SetNull)
+
+  @@map("quote_lines")
+}
+
+model StatusHistory {
+  id             String       @id @default(uuid())
+  previousStatus QuoteStatus?
+  newStatus      QuoteStatus
+  changedAt      DateTime     @default(now())
+  quoteId        String
+  changedById    String
+
+  // Relations
+  quote     Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  changedBy User  @relation(fields: [changedById], references: [id])
+
+  @@map("status_histories")
+}
