@@ -31,12 +31,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const saved = localStorage.getItem('user');
     return saved ? (JSON.parse(saved) as User) : null;
   });
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(() =>
+    Boolean(localStorage.getItem('access_token')),
+  );
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (!token) {
-      setLoading(false);
       return;
     }
 
@@ -85,6 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
