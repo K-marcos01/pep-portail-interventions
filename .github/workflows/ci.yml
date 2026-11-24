@@ -1,0 +1,69 @@
+name: CI - Portail d'Interventions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    name: Backend (NestJS & Prisma)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: Configurer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Générer le client Prisma
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/pep_db?schema=public
+        run: npx prisma generate
+
+      - name: Vérifier le code (ESLint)
+        run: npm run lint
+
+      - name: Compiler le backend (Build)
+        run: npm run build
+
+  frontend:
+    name: Frontend (React & Vite)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: Configurer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Vérifier le code (ESLint)
+        run: npm run lint
+
+      - name: Compiler le frontend (TypeScript & Vite)
+        env:
+          VITE_API_URL: http://localhost:3000
+        run: npm run build
