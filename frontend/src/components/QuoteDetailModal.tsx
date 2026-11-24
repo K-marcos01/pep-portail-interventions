@@ -30,22 +30,31 @@ export function QuoteDetailModal({
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState('');
+useEffect(() => {
+    let active = true;
 
-  const fetchDetail = async () => {
-    try {
-      const { data } = await api.get<Quote>(`/quotes/${quoteId}`);
-      setQuote(data);
-    } catch {
-      setError('Impossible de charger le détail du devis.');
-    } finally {
-      setLoading(false);
-    }
-  };
+    api
+      .get<Quote>(`/quotes/${quoteId}`)
+      .then(({ data }) => {
+        if (active) {
+          setQuote(data);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setError('Impossible de charger le détail du devis.');
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
 
-  useEffect(() => {
-    fetchDetail();
+    return () => {
+      active = false;
+    };
   }, [quoteId]);
-
   const handleStatusChange = async (newStatus: QuoteStatus) => {
     setError('');
     setActionLoading(true);
