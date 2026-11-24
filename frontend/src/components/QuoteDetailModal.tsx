@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   CheckCircle2,
   Clock,
+  Download,
   Play,
   Send,
   Trash2,
@@ -76,6 +77,39 @@ useEffect(() => {
       setActionLoading(false);
     }
   };
+
+  const handleDownloadPdf = async () => {
+  if (!quote) return;
+  setError('');
+  setActionLoading(true);
+  try {
+    const response = await api.get<Blob>(`/quotes/${quote.id}/pdf`, {
+      responseType: 'blob',
+    });
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${quote.reference}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch {
+    setError('Impossible de télécharger le devis au format PDF.');
+  } finally {
+    setActionLoading(false);
+  }
+};
+
+<button
+  type="button"
+  disabled={actionLoading}
+  onClick={handleDownloadPdf}
+  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+>
+  <Download className="h-4 w-4" />
+  Télécharger PDF
+</button>
 
   const handleDeleteDraft = async () => {
     setError('');

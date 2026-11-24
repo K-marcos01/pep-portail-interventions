@@ -6,16 +6,19 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   Request,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import type { Response } from 'express';
+import { AuthenticatedUser, QuotesService } from './quotes.service';
 import { Role } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { UpdateQuoteStatusDto } from './dto/update-quote-status.dto';
-import { QuotesService } from './quotes.service';
 
 interface AuthenticatedRequest {
   user: {
@@ -74,5 +77,23 @@ export class QuotesController {
     @Request() req: AuthenticatedRequest,
   ) {
     return this.quotesService.removeDraft(id, req.user.userId);
+  }
+
+  @Get(':id/pdf')
+  async downloadPdf(
+    @Param('id') id: string,
+    @Req() req: { user: AuthenticatedUser },
+    @Res() res: Response,
+  ): Promise<void> {
+    const { buffer, reference } = await this.quotesService.generatePdf(
+      id,
+      req.user,
+    );
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${reference}.pdf"`,
+      'Content-Length': buffer.length,
+    });
+    res.end(buffer);
   }
 }
